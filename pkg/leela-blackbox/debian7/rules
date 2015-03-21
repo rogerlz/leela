@@ -3,6 +3,7 @@
 
 version      = $(shell env component=.leela-blackbox src/scripts/read-version.sh)
 bin_lein    ?= lein
+libdir       = /usr/local/lib
 
 %:
 	dh $@
@@ -18,6 +19,6 @@ override_dh_installinit:
 
 override_dh_auto_build:
 	dh_testdir
-	cd src/blackbox; env LEIN_ROOT=1 LEIN_SNAPSHOTS_IN_RELEASE=1 $(bin_lein) uberjar
-	cp -a /usr/lib/libjzmq*.so* src/blackbox/target
+	cd src/blackbox; env LEIN_ROOT=1 LEIN_SNAPSHOTS_IN_RELEASE=1 LD_LIBRARY_PATH=$(libdir) $(bin_lein) uberjar
+	cp -a $(libdir)/libjzmq*.so* src/blackbox/target
 	cp src/blackbox/target/blackbox-$(version)-standalone.jar src/blackbox/target/blackbox.jar
