@@ -86,3 +86,9 @@ For the ones interested in using a Leela cluster.
 * [ZMQ Interface](user-guide/zeromq-interface.md)
 
 * [HTTP Interface](user-guide/http-interface.md)
+
+### Packaging Guide
+
+For the ones interesed in create production packages 
+
+* [Debian Packages](packaging-guide/debian-packages.md)
