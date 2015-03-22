@@ -46,7 +46,7 @@ leela_wait4 () {
 
 leela_watchdog_start () {
   leela_grantaccess
-  [ ! -r /etc/consul/conf.d/blackbox.json ] && {
+  [ ! -r /etc/consul/conf.d/blackbox.json ] && [ -x /etc/init.d/consul ] && {
     ln -s -f /etc/consul/conf.d/blackbox.service /etc/consul/conf.d/blackbox.json
     /etc/init.d/consul reload
   }
@@ -54,7 +54,7 @@ leela_watchdog_start () {
 
 leela_watchdog_stop () {
   leela_grantaccess
-  [ -r /etc/consul/conf.d/blackbox.json ] && {
+  [ -r /etc/consul/conf.d/blackbox.json ] && [ -x /etc/init.d/consul ] && {
     rm -f /etc/consul/conf.d/blackbox.json
     /etc/init.d/consul reload
   }
