@@ -14,7 +14,9 @@ $ cd leela
 Install the dependencies:
 
 ```.shell
-$ sudo apt-get install build-essential devscripts dh-exec cmake python-dev
+$ sudo echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
+$ sudo apt-get update
+$ sudo apt-get install build-essential devscripts dh-exec cmake python-dev libncursesw5-dev libffi-dev libzmq3-dev
 ```
 
 ## Packing libleela
@@ -46,11 +48,17 @@ dist/debian7/amd64/libleela/libleela_6.4.1-1_amd64.changes
 
 ## Packing libleela-python
 
+Install libleela recently created packages:
+
+```.shell
+$ dpkg -i pkg/dist/debian7/amd64/libleela/*.deb
+```
+
 Create the package:
 
 ```.shell
 $ cd pkg
-$ make libleela.debian
+$ make libleela-python.debian
 ```
 
 Locating the files:
@@ -91,16 +99,16 @@ dist/debian7/amd64/leela-warpdrive/leela-warpdrive_5.11.0-3_amd64.deb
 
 ## Packing leela-blackbox
 
-Bootstrap JZmq:
-
-```.shell
-$ sudo ./automation/bootstrap/jzmq-bootstrap.sh deb
-```
-
 Bootstrap Clojure:
 
 ```.shell
 $ sudo ./automation/bootstrap/clojure-bootstrap.sh deb
+```
+
+Bootstrap JZmq:
+
+```.shell
+$ sudo ./automation/bootstrap/jzmq-bootstrap.sh deb
 ```
 
 Create the package:
@@ -125,7 +133,7 @@ dist/debian7/amd64/leela-blackbox/leela-blackbox_6.3.0-1.tar.gz
 
 ```.shell
 $ cd pkg 
-$ make leela-wapgrep.debian
+$ make leela-warpgrep.debian
 ```
 
 ```.shell
@@ -136,3 +144,30 @@ dist/debian7/amd64/leela-warpgrep/leela-warpgrep_5.10.0-1_amd64.changes
 dist/debian7/amd64/leela-warpgrep/leela-warpgrep_5.10.0-1.dsc
 dist/debian7/amd64/leela-warpgrep/leela-warpgrep_5.10.0-1.tar.gz
 ```
+
+
+## Packing leela-collectd
+
+Bootstrap Collectd:
+
+```.shell
+$ sudo ./automation/bootstrap/collectd-bootstrap.sh deb
+```
+
+Create the package:
+
+```.shell
+$ cd pkg
+$ make collectd-leela.debian
+```
+
+Locating the files:
+```.shell
+$ find dist/debian7/amd64/collectd-leela/
+dist/debian7/amd64/collectd-leela/
+dist/debian7/amd64/collectd-leela/leela-collectd_6.7.2-1_amd64.changes
+dist/debian7/amd64/collectd-leela/leela-collectd_6.7.2-1_amd64.deb
+dist/debian7/amd64/collectd-leela/leela-collectd_6.7.2-1.tar.gz
+dist/debian7/amd64/collectd-leela/leela-collectd_6.7.2-1.dsc
+```
+
